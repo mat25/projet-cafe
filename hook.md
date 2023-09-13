@@ -10,7 +10,7 @@
 ## Créer un hook de sauvegarde de la base de données
 - Créer un fichier nommé `pre-commit` dans le dossier `.git/hooks`
 - Ajouter le code suivant dans le fichier :
-```bash
+```bash 
 
 #!/bin/sh
 # Spécifiez l'emplacement de votre exécutable `mysqldump`
