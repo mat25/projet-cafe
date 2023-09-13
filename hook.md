@@ -11,6 +11,7 @@
 - Créer un fichier nommé `pre-commit` dans le dossier `.git/hooks`
 - Ajouter le code suivant dans le fichier :
 ```bash
+
 #!/bin/sh
 # Spécifiez l'emplacement de votre exécutable `mysqldump`
 # Si vous avez installé XAMPP à l'emplacement par défaut, cela pourrait ressembler à ceci:
