@@ -26,7 +26,7 @@ Les salariés se connecteront avec leur e-mail<br>
             <td colspan="5" style="text-align: center">
                 <form style=\'display: contents\'>
                     
-                    <input type="hidden" name="case" value="Gerer_entrprise">
+                    <input type="hidden" name="case" value="Gerer_Entreprise">
  
                         <button type="submit" 
                             onmouseover="this.style.background=\'#FFFF99\';this.style.color=\'#FF0000\';"
@@ -78,7 +78,7 @@ Les salariés se connecteront avec leur e-mail<br>
                 <td>
                     <form style='display: contents'>
                     
-                        <input type='hidden' name='case' value='Gerer_entreprisesPartenaires'>
+                        <input type='hidden' name='case' value='Gerer_Entreprise'>
                             
                             <input type='hidden' value='$salarie[idSalarie]' name='idSalarie'>
                             

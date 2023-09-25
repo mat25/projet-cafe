@@ -1,6 +1,7 @@
 @startuml
 
 usecase (gérer compte) as UC_Gerer_Compte
+usecase (gérer compte de l'entreprise) as UC_Gerer_Compte_entreprise
 usecase (gérer catalogue) as UC_Gerer_Catalogue
 usecase (gérer entreprise cliente) as UC_Gerer_Entreprise
 usecase (gérer commande) as UC_Gerer_Commande
@@ -21,4 +22,6 @@ userCafe --> UC_Gerer_Compte
 userCafe --> UC_Gerer_Catalogue
 userCafe --> UC_Gerer_Entreprise
 userCafe --> UC_Gerer_Commande
+
+entreprise --> UC
 @enduml
