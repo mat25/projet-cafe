@@ -80,7 +80,7 @@ CREATE TABLE `commande` (
   `etat` int(11) DEFAULT NULL COMMENT '1 : Caddie\r\n2 : Commande confirmée, en attente de virement\r\n3 : Commande payée, virement re├ºu\r\n4 : Commande en préparation\r\n5 : Commande en attente approvisionnement\r\n6 : Commande expédiée\r\n7 : Commande re├ºue par le client\r\n8 : Commande avec incident livraison\r\n9 : Commande avec réexpédition entraine une autre commande\r\n10 : Commande en attente de retour\r\n11 : Commande retournée re├ºue, en attente de remboursement\r\n12 : Commande retournée remboursée\r\n13 : Commande remboursée sans retour client',
   PRIMARY KEY (`id`),
   CONSTRAINT `idUtilisateur` FOREIGN KEY (`id`) REFERENCES `entreprise` (`idEntreprise`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -89,7 +89,7 @@ CREATE TABLE `commande` (
 
 LOCK TABLES `commande` WRITE;
 /*!40000 ALTER TABLE `commande` DISABLE KEYS */;
-INSERT INTO `commande` VALUES (1,'2021-09-22 21:20:18',20,2),(2,'2021-10-07 00:59:58',20,2),(3,'2021-10-07 01:03:28',20,2),(4,'2021-10-07 01:05:53',20,6),(5,'2022-04-07 15:58:35',20,2),(6,'2022-10-12 05:35:27',20,2),(7,'2022-10-12 15:11:23',25,6),(8,'2022-11-09 16:27:53',20,2),(9,'2022-11-09 17:42:01',20,2),(10,'2022-11-09 17:42:28',20,1);
+INSERT INTO `commande` VALUES (1,'2021-09-22 21:20:18',20,2),(2,'2021-10-07 00:59:58',20,2),(3,'2021-10-07 01:03:28',20,2),(4,'2021-10-07 01:05:53',20,6),(5,'2022-04-07 15:58:35',20,2),(6,'2022-10-12 05:35:27',20,6),(7,'2022-10-12 15:11:23',25,6),(8,'2022-11-09 16:27:53',20,3),(9,'2022-11-09 17:42:01',20,2),(10,'2022-11-09 17:42:28',20,2),(11,'2023-09-25 16:10:57',20,1);
 /*!40000 ALTER TABLE `commande` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -119,7 +119,7 @@ CREATE TABLE `commande_avoir_article` (
 
 LOCK TABLES `commande_avoir_article` WRITE;
 /*!40000 ALTER TABLE `commande_avoir_article` DISABLE KEYS */;
-INSERT INTO `commande_avoir_article` VALUES (6,128,4,6,0.1),(6,129,3,6,0.1),(7,150,2,7,0.1),(7,152,3,7,0.1),(7,206,2,25,0.1),(8,150,50,7,0.1),(9,150,2,7,0.1),(10,154,4,7,0.1),(10,196,5,25,0.1);
+INSERT INTO `commande_avoir_article` VALUES (6,128,4,6,0.1),(6,129,3,6,0.1),(7,150,2,7,0.1),(7,152,3,7,0.1),(7,206,2,25,0.1),(8,150,50,7,0.1),(9,150,2,7,0.1),(10,128,1,6,0.1),(10,154,4,7,0.1),(10,196,5,25,0.1),(11,128,1,6,0.1),(11,150,7,7,0.1);
 /*!40000 ALTER TABLE `commande_avoir_article` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -197,7 +197,7 @@ CREATE TABLE `historique_etat_commande` (
   `idSalarie` int(11) DEFAULT NULL,
   `idUtilisateur` int(11) DEFAULT NULL,
   PRIMARY KEY (`idHistorique`)
-) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -206,7 +206,7 @@ CREATE TABLE `historique_etat_commande` (
 
 LOCK TABLES `historique_etat_commande` WRITE;
 /*!40000 ALTER TABLE `historique_etat_commande` DISABLE KEYS */;
-INSERT INTO `historique_etat_commande` VALUES (18,6,2,'2022-10-12 05:37:13','Commande passée par userZoomBox userZoomBox',12,-1),(19,7,2,'2022-10-12 15:11:40','Commande passée par test test',13,-1),(20,7,3,'2022-10-12 15:12:16','',-1,18),(21,7,4,'2022-10-12 15:12:28','',-1,18),(22,7,6,'2022-10-12 15:12:31','',-1,18),(23,8,2,'2022-11-09 17:09:46','Commande passée par userZoomBox userZoomBox',12,-1),(24,9,2,'2022-11-09 17:42:04','Commande passée par userZoomBox userZoomBox',12,-1);
+INSERT INTO `historique_etat_commande` VALUES (18,6,2,'2022-10-12 05:37:13','Commande passée par userZoomBox userZoomBox',12,-1),(19,7,2,'2022-10-12 15:11:40','Commande passée par test test',13,-1),(20,7,3,'2022-10-12 15:12:16','',-1,18),(21,7,4,'2022-10-12 15:12:28','',-1,18),(22,7,6,'2022-10-12 15:12:31','',-1,18),(23,8,2,'2022-11-09 17:09:46','Commande passée par userZoomBox userZoomBox',12,-1),(24,9,2,'2022-11-09 17:42:04','Commande passée par userZoomBox userZoomBox',12,-1),(25,10,2,'2023-09-25 16:10:49','Commande passée par nomGerant prenomGerant',768,-1),(26,6,3,'2023-09-25 16:38:30','',-1,18),(27,6,4,'2023-09-25 16:38:37','',-1,18),(28,8,3,'2023-09-25 16:40:52','',-1,19),(29,6,6,'2023-09-25 16:47:10','',-1,19);
 /*!40000 ALTER TABLE `historique_etat_commande` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -311,7 +311,7 @@ CREATE TABLE `utilisateur` (
   `idCategorie_utilisateur` int(11) NOT NULL,
   `desactiver` tinyint(1) DEFAULT NULL,
   PRIMARY KEY (`idUtilisateur`)
-) ENGINE=InnoDB AUTO_INCREMENT=771 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=772 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -333,4 +333,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-09-25 15:28:05
+-- Dump completed on 2023-09-25 16:52:27
