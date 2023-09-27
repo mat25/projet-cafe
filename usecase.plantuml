@@ -56,3 +56,6 @@ salarie --> UC_Gerer_Son_Compte
 salarie --> UC_Gerer_Panier
 UC_Gerer_Panier -->"include" UC_Commander
 @enduml
+
+admin = gerer utilisateur
+gerer commande =
