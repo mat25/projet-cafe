@@ -1,0 +1,63 @@
+@startuml
+
+usecase (gérer compte de tout le monde) as UC_Gerer_Compte_tous
+usecase (gérer compte des salarie) as UC_Gerer_Compte_entreprise
+usecase (gérer catalogue) as UC_Gerer_Catalogue
+usecase (gérer entreprise cliente) as UC_Gerer_Entreprise_cliente
+usecase (gérer commande) as UC_Gerer_Commande
+usecase (gérer son compte) as UC_Gerer_Son_Compte
+
+usecase (Ajouter salarie) as UC_ajouter_salarie
+usecase (activer/desactiver salarie) as UC_active_salarie
+
+usecase (Ajouter utilisateur) as UC_ajouter_utilisateur
+usecase (activer/desactiver utilisateur) as UC_active_utilisateur
+usecase (ajouter produit) as UC_ajouter_produit
+usecase (Gerer produit) as UC_Gerer_Produit
+usecase (ajouter entreprise) as UC_ajouter_entreprise
+usecase (changer status Commande) as UC_changer_status_commande
+
+usecase (Redacteur) as UC_redacteur
+usecase (commercial) as UC_commercial
+
+
+usecase (Gerer panier) as UC_Gerer_Panier
+usecase (Commander) as UC_Commander
+
+
+
+actor :administrateur du logiciel: as admin
+actor :utilisateur Cafe: as userCafe
+actor :entreprise cliente: as entreprise
+actor :salarié entreprise cliente: as salarie
+
+
+admin --> UC_Gerer_Compte_tous
+admin --> UC_Gerer_Son_Compte
+
+
+userCafe --> UC_redacteur: extends : si (Redacteur)
+UC_redacteur --> UC_Gerer_Catalogue
+userCafe --> UC_commercial : extends : si (commercial)
+UC_commercial --> UC_Gerer_Commande
+UC_commercial --> UC_Gerer_Entreprise_cliente
+userCafe --> UC_Gerer_Son_Compte
+
+entreprise -->"include" UC_Gerer_Compte_entreprise
+UC_Gerer_Compte_entreprise -->"include" UC_ajouter_salarie
+UC_Gerer_Compte_entreprise -->"include" UC_active_salarie
+entreprise -->"include" UC_Gerer_Son_Compte
+
+UC_Gerer_Compte_tous -->"include" UC_ajouter_utilisateur
+UC_Gerer_Compte_tous -->"include" UC_active_utilisateur
+UC_Gerer_Entreprise_cliente -->"include" UC_ajouter_entreprise
+UC_Gerer_Commande -->"extends : si commande est confirmée et pas expédiée" UC_changer_status_commande
+UC_Gerer_Catalogue --> UC_Gerer_Produit
+UC_Gerer_Catalogue --> UC_ajouter_produit
+
+
+salarie --> UC_Gerer_Son_Compte
+salarie --> UC_Gerer_Panier
+UC_Gerer_Panier -->"include" UC_Commander
+@enduml
+
