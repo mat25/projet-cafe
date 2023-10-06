@@ -12,7 +12,6 @@ use App\Vue\Vue_Structure_Entete;
 
 use PHPMailer\PHPMailer\PHPMailer;
 //Ce contrôleur gère le formulaire de connexion pour les visiteurs
-
 $Vue->setEntete(new Vue_Structure_Entete());
 
 switch ($action) {
@@ -41,16 +40,25 @@ switch ($action) {
                     if ($_REQUEST["password"] == $utilisateur["motDePasse"]) {
                         $_SESSION["idUtilisateur"] = $utilisateur["idUtilisateur"];
                         //error_log("idUtilisateur : " . $_SESSION["idUtilisateur"]);
+                        $_SESSION["acceptationRGPD"]=$utilisateur["aAccepterRGPD"];
                         $_SESSION["idCategorie_utilisateur"] = $utilisateur["idCategorie_utilisateur"];
+
                         //error_log("idCategorie_utilisateur : " . $_SESSION["idCategorie_utilisateur"]);
                         switch ($utilisateur["idCategorie_utilisateur"]) {
                             case 1:
                                 $_SESSION["typeConnexionBack"] = "administrateurLogiciel"; //Champ inutile, mais bien pour voir ce qu'il se passe avec des étudiants !
+
                                 $Vue->setMenu(new Vue_Menu_Administration($_SESSION["typeConnexionBack"]));
                                 break;
                             case 2:
+
                                 $_SESSION["typeConnexionBack"] = "utilisateurCafe";
-                                $Vue->setMenu(new Vue_Menu_Administration($_SESSION["typeConnexionBack"]));
+                                if ($_SESSION["acceptationRGPD"]==0){
+                                    include "Controleur_Gestion_RGPD.php";
+                                }else{
+                                    $Vue->setMenu(new Vue_Menu_Administration($_SESSION["typeConnexionBack"]));
+
+                                }
                                 break;
                             case 3:
                                 $_SESSION["typeConnexionBack"] = "entrepriseCliente";
@@ -62,7 +70,12 @@ switch ($action) {
                                 $_SESSION["typeConnexionBack"] = "salarieEntrepriseCliente";
                                 $_SESSION["idSalarie"] = $utilisateur["idUtilisateur"];
                                 $_SESSION["idEntreprise"] = Modele_Salarie::Salarie_Select_byId($_SESSION["idUtilisateur"])["idEntreprise"];
-                                include "./Controleur/Controleur_Catalogue_client.php";
+                                if ($_SESSION["acceptationRGPD"]==0){
+                                    include "Controleur_Gestion_RGPD.php";
+                                }else{
+                                    include "./Controleur/Controleur_Catalogue_client.php";
+                                }
+
                                 break;
                         }
 

@@ -191,5 +191,17 @@ SET motDePasse = :parammotDePasse ');
         $reponse = $requetePreparee->execute(); //$reponse boolean sur l'état de la requête
         return $reponse;
     }
+    static function utilisateur_modifier_rgpd($idUtilisateur){
+        $connexionPDO= Singleton_ConnexionPDO::getInstance();
+        $dateJour = \DateTime::createFromFormat("Y-m-d",date("Y-m-d"));
+        $dateStr=$dateJour->format("Y-m-d");
+        $requetePreparee=$connexionPDO->prepare('UPDATE utilisateur SET aAccepterRGPD = 1 , dateAcceptionRGPD = :dateJour WHERE idUtilisateur = :idUtilisateur');
+        $requetePreparee->bindParam('idUtilisateur', $idUtilisateur);
+        $requetePreparee->bindParam('dateJour', $dateStr);
+        $reponse=$requetePreparee->execute();
+
+        return $reponse;
+    }
+
 
 }

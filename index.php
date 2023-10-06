@@ -15,7 +15,6 @@ use App\Vue\Vue_Structure_Entete;
 
 $Vue = new Vue();
 
-//Charge le gestionnaire de vue
 
 
 if (isset($_SESSION["typeConnexionBack"])) {
@@ -44,12 +43,16 @@ else
 //error_log("action : " . $action);
 //utiliser en débuggage pour avoir le type de connexion
 //$Vue->addToCorps(new Vue_AfficherMessage("<br>Action $action<br>"));
-
 switch ($typeConnexion) {
     case "visiteur" :
         include "Controleur/Controleur_visiteur.php";
         break;
     case "utilisateurCafe":
+        switch ($case){
+            case "RGPD":
+                include "Controleur/Controleur_Gestion_RGPD.php";
+                break;
+        }
     case "administrateurLogiciel":
         switch ($case) {
             case "Gerer_CommandeClient":
@@ -76,6 +79,9 @@ switch ($typeConnexion) {
     case "entrepriseCliente" :
     case "salarieEntrepriseCliente" :
         switch ($case) {
+            case "RGPD":
+                include "Controleur/Controleur_Gestion_RGPD.php";
+                break;
 
             case "Gerer_CommandeClient":
                 include "Controleur/Controleur_Gerer_CommandeClient.php";
