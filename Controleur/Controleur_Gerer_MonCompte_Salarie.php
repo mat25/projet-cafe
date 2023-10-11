@@ -8,6 +8,7 @@ use App\Vue\Vue_Menu_Entreprise_Salarie;
 use App\Vue\Vue_Structure_BasDePage;
 use App\Vue\Vue_Structure_Entete;
 use App\Vue\Vue_Utilisateur_Changement_MDP;
+use function App\Fonctions\CalculComplexiteMdp;
 
 
 switch ($action) {
