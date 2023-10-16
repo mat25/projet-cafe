@@ -3,6 +3,7 @@
 
 use App\Modele\Modele_Entreprise;
 use App\Modele\Modele_Salarie;
+use App\Modele\Modele_Utilisateur;
 use App\Vue\Vue_Utilisateur_Changement_MDP;
 use App\Vue\Vue_Connexion_Formulaire_client;
 use App\Vue\Vue_Menu_Entreprise_Client;
@@ -12,6 +13,7 @@ use App\Vue\Vue_Salarie_Editer;
 use App\Vue\Vue_Salarie_Liste;
 use App\Vue\Vue_Structure_BasDePage;
 use App\Vue\Vue_Structure_Entete;
+use function App\Fonctions\CalculComplexiteMdp;
 
 
 switch ($action) {
@@ -86,14 +88,17 @@ switch ($action) {
         $Vue->setEntete(new Vue_Structure_Entete());
         $Vue->setMenu(new Vue_Menu_Entreprise_Client());
         //il faut récuperer le mdp en BDD et vérifier qu'ils sont identiques
-        $entreprise_connectee = Modele_Entreprise::Entreprise_Select_ParId($_SESSION["idEntreprise"]);
-        if (password_verify($_REQUEST["AncienPassword"], $entreprise_connectee["motDePasse"])) {
+        $utilisateur = Modele_Utilisateur::Utilisateur_Select_ParId($_SESSION["idUtilisateur"]);
+        if ($_REQUEST["AncienPassword"] ==  $utilisateur["motDePasse"]) {
             //on vérifie si le mot de passe de la BDD est le même que celui rentré
             if ($_REQUEST["NouveauPassword"] == $_REQUEST["ConfirmPassword"]) {
-                Modele_Entreprise::Entreprise_Modifier_motDePasse($_SESSION["idEntreprise"], $_REQUEST["NouveauPassword"]);
-                $Vue->addToCorps(new Vue_Entreprise_Gerer_Compte("<label><b>Votre mot de passe a bien été modifié</b></label>"));
-                // Dans ce cas les mots de passe sont bons, il est donc modifié
-
+                if ( CalculComplexiteMdp($_REQUEST["NouveauPassword"]) > 90) {
+                    Modele_Utilisateur::Utilisateur_Modifier_motDePasse($_SESSION["idUtilisateur"], $_REQUEST["NouveauPassword"]);
+                    $Vue->addToCorps(new Vue_Entreprise_Gerer_Compte("<label><b>Votre mot de passe a bien été modifié</b></label>"));
+                    // Dans ce cas les mots de passe sont bons, il est donc modifié
+                } else {
+                    $Vue->addToCorps(new Vue_Utilisateur_Changement_MDP("<label><b>Le mot de passe n'est pas assez fort</b></label>"));
+                }
             } else {
                 $Vue->addToCorps(new Vue_Utilisateur_Changement_MDP("<label><b>Les nouveaux mots de passe ne sont pas identiques</b></label>"));
 
