@@ -1,11 +1,15 @@
 <?php
 namespace App\Vue;
+use App\Utilitaire\Vue_Composant;
+
 class Vue_Mail_ChoisirNouveauMdp  extends Vue_Composant
 {
     private string $token;
-    public function __construct(string $token)
+    private string $msg;
+    public function __construct(string $token,?string $msg)
     {
         $this->token=$token;
+        $this->msg=$msg;
     }
 
     function donneTexte(): string
@@ -21,6 +25,7 @@ class Vue_Mail_ChoisirNouveauMdp  extends Vue_Composant
                 <button type='submit' id='submit' name='action' value='choixmdp'>
                       Confirmer le mdp
                 </button>
+                <p>$this->msg</p>
             </form>
     ";
     }

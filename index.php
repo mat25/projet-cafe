@@ -79,6 +79,8 @@ switch ($typeConnexion) {
     case "entrepriseCliente" :
     case "salarieEntrepriseCliente" :
         switch ($case) {
+            case "choixmdp":
+                include "Controleur/Controleur_visiteur.php";
             case "RGPD":
                 include "Controleur/Controleur_Gestion_RGPD.php";
                 break;

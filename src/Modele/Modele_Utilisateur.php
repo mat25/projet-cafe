@@ -195,13 +195,43 @@ SET motDePasse = :parammotDePasse ');
         $connexionPDO= Singleton_ConnexionPDO::getInstance();
         $dateJour = \DateTime::createFromFormat("Y-m-d",date("Y-m-d"));
         $dateStr=$dateJour->format("Y-m-d");
-        $requetePreparee=$connexionPDO->prepare('UPDATE utilisateur SET aAccepterRGPD = 1 , dateAcceptionRGPD = :dateJour WHERE idUtilisateur = :idUtilisateur');
+        $requetePreparee=$connexionPDO->prepare('UPDATE utilisateur SET aAccepterRGPD = 1 , dateRGPD = :dateJour WHERE idUtilisateur = :idUtilisateur');
         $requetePreparee->bindParam('idUtilisateur', $idUtilisateur);
         $requetePreparee->bindParam('dateJour', $dateStr);
         $reponse=$requetePreparee->execute();
 
         return $reponse;
     }
+    static function Utilisateur_Modifier_MdpAactiver($idUtilisateur, $activer)
+
+    {
+        $connexionPDO = Singleton_ConnexionPDO::getInstance();
+
+        $requetePreparee = $connexionPDO->prepare(
+            'UPDATE `utilisateur` 
+SET `MdpAmodifier`= :paramactiver
+WHERE idUtilisateur = :paramidUtilisateur');
+        $requetePreparee->bindParam('paramactiver', $activer);
+        $requetePreparee->bindParam('paramidUtilisateur', $idUtilisateur);
+        $reponse = $requetePreparee->execute(); //$reponse boolean sur l'état de la requête
+        return $reponse;
+    }
+
+    static function Utilisateur_Modifier_MdpDesactiver($idUtilisateur, $desactiver)
+
+    {
+        $connexionPDO = Singleton_ConnexionPDO::getInstance();
+
+        $requetePreparee = $connexionPDO->prepare(
+            'UPDATE `utilisateur` 
+SET `MdpAmodifier`= :paramactiver
+WHERE idUtilisateur = :paramidUtilisateur');
+        $requetePreparee->bindParam('paramactiver', $desactiver);
+        $requetePreparee->bindParam('paramidUtilisateur', $idUtilisateur);
+        $reponse = $requetePreparee->execute(); //$reponse boolean sur l'état de la requête
+        return $reponse;
+    }
+
 
 
 }
