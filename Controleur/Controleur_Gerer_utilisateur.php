@@ -8,6 +8,7 @@ use App\Vue\Vue_Structure_BasDePage;
 use App\Vue\Vue_Structure_Entete;
 use App\Vue\Vue_Utilisateur_Formulaire;
 use App\Vue\Vue_Utilisateur_Liste;
+require_once "src/Fonctions/sendMdpMail.php";
 
 $Vue->setEntete(new Vue_Structure_Entete());
 
@@ -39,10 +40,19 @@ switch ($action) {
     case "réinitialiserMDPUtilisateur":
         //Réinitialiser MDP sur la fiche de l'entreprise
         $Utilisateur = Modele_Utilisateur::Utilisateur_Select_ParId($_REQUEST["idUtilisateur"]);
-        Modele_Utilisateur::Utilisateur_Modifier_motDePasse($_REQUEST["idUtilisateur"], "secret"); //$Utilisateur["idUtilisateur"]
+        $email = $Utilisateur["login"];
+        $erreur = sendMdpMail($email);
+        if (!$erreur) {
+            $msg = 'Désolé, quelque chose a mal tourné. Veuillez réessayer plus tard.';
+            $listeNiveauAutorisation = Modele_categorie_utilisateur::categorie_utilisateur_Select();
+            $Utilisateur = Modele_Utilisateur::Utilisateur_Select_ParId($_REQUEST["idUtilisateur"]);
+            $Vue->addToCorps(new Vue_Utilisateur_Formulaire(false, $listeNiveauAutorisation, $Utilisateur["idUtilisateur"], $Utilisateur["login"], $Utilisateur["idCategorie_utilisateur"],$msg));
 
-        $listeUtilisateur = Modele_Utilisateur:: Utilisateur_Select_Cafe();
-        $Vue->addToCorps(new Vue_Utilisateur_Liste($listeUtilisateur));
+        } else {
+            $listeUtilisateur = Modele_Utilisateur:: Utilisateur_Select_Cafe();
+            $Vue->addToCorps(new Vue_Utilisateur_Liste($listeUtilisateur));
+        }
+
 
         break;
     case "nouveau":

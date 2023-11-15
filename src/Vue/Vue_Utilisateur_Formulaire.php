@@ -10,15 +10,17 @@ private array $listeCategorieUtilisateur;
 private  string $idUtilisateur="";
 private string $login="";
 private string $categorieUtilisateur="";
+private string $erreur="";
 
     public function __construct(bool $modeCreation=true, array $listeNiveauAutorisation, string $idUtilisateur="",
-                                string $login="", string $niveauAutorisation="")
+                                string $login="", string $niveauAutorisation="",string $erreur="")
     {
         $this->modeCreation=$modeCreation;
         $this->listeCategorieUtilisateur=$listeNiveauAutorisation;
         $this->idUtilisateur=$idUtilisateur;
         $this->login=$login;
         $this->categorieUtilisateur=$niveauAutorisation;
+        $this->erreur = $erreur;
     }
 
     function donneTexte(): string
@@ -88,9 +90,9 @@ private string $categorieUtilisateur="";
 
         $str .=  "</td>
         </tr>
-
     </form>
 </table>
+<p>$this->erreur</p>
 
 ";
         return $str;

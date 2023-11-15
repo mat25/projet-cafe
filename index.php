@@ -49,12 +49,18 @@ switch ($typeConnexion) {
         break;
     case "utilisateurCafe":
         switch ($case){
+            case "choixmdp":
+                include "Controleur/Controleur_visiteur.php";
+                break;
             case "RGPD":
                 include "Controleur/Controleur_Gestion_RGPD.php";
                 break;
         }
     case "administrateurLogiciel":
         switch ($case) {
+            case "choixmdp":
+                include "Controleur/Controleur_visiteur.php";
+                break;
             case "Gerer_CommandeClient":
             case "Gerer_Commande":
                 include "Controleur/Controleur_Gerer_Commande.php";
@@ -81,6 +87,7 @@ switch ($typeConnexion) {
         switch ($case) {
             case "choixmdp":
                 include "Controleur/Controleur_visiteur.php";
+                break;
             case "RGPD":
                 include "Controleur/Controleur_Gestion_RGPD.php";
                 break;
