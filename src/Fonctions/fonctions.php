@@ -64,13 +64,22 @@ function CalculComplexiteMdp($mdp) :int{
 }
 
 
-    function passgen1 ($nbChar)
-    {
-        $chaine = "ABCDEFGHIJKLMONOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789&é\"'(-è_çà)=$^*ù!:;,~#{[|`\^@]}¤€";
-        $pass = '';
-        for ($i = 0; $i < $nbChar; $i++) {
-            $pass .= $chaine[random_int(0,strlen($chaine)-1)];
-        }
-        return $pass;
+function passgen1 ($nbChar)
+{
+    $chaine = "ABCDEFGHIJKLMONOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789&é\"'(-è_çà)=$^*ù!:;,~#{[|`\^@]}¤€";
+    $pass = '';
+    for ($i = 0; $i < $nbChar; $i++) {
+        $pass .= $chaine[random_int(0,strlen($chaine)-1)];
     }
+    return $pass;
+}
+
+
+function genererToken() : string {
+    $octetsAleatoires = openssl_random_pseudo_bytes (256) ;
+    $jeton = sodium_bin2base64($octetsAleatoires, SODIUM_BASE64_VARIANT_ORIGINAL);
+    return $jeton;
+}
+
+
 
