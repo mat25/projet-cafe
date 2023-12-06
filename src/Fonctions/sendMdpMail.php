@@ -10,6 +10,7 @@ function sendMdpMail(string $mail)
     $newMdp=passgen1(10);
     $mail= new PHPMailer;
     $mail->isSMTP();
+    $mail->CharSet = "UTF-8";
     $mail->Host = '127.0.0.1';
     $mail->Port = 1025; //Port non crypté
     $mail->SMTPAuth = false; //Pas d’authentification
