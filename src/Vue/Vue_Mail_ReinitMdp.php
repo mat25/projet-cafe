@@ -21,7 +21,13 @@ class Vue_Mail_ReinitMdp extends Vue_Composant
                 <button type='submit' id='submit' name='action' 
                             value='reinitmdpconfirm'>
                             Renouveler mdp
+                </button>
+                 <button type='submit' id='submit' name='action' 
+                            value='reinitmdpParTokenconfirm'>
+                            Renouveler mdp par token
                 </button>";
+
+        
         $str .=  "
  </form>
     ";

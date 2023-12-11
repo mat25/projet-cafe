@@ -43,7 +43,7 @@ class Modele_Jeton {
      */
     static function Ajouter_jeton($jeton,$idUtilisateur)
     {
-        $date = (new \DateTime())->modify("+3 days");
+        $date = ((new \DateTime())->modify("+3 days"))->format("Y-m-d-H-i-s");
         $connexionPDO = Singleton_ConnexionPDO::getInstance();
         $requetePreparee = $connexionPDO->prepare('
         INSERT INTO token (valeur,codeAction,idUtilisateur,dateFin) VALUES  (:paramValeur,0,:paramUtilisateur,:paramDateFin)');

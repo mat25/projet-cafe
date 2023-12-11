@@ -1,6 +1,7 @@
 <?php
 require_once "vendor/autoload.php";
 require_once "src/Fonctions/sendMdpMail.php";
+require_once "src/Fonctions/sendMdpMailParToken.php";
 use App\Modele\Modele_Entreprise;
 use App\Modele\Modele_Salarie;
 use App\Modele\Modele_Utilisateur;
@@ -10,13 +11,33 @@ use App\Vue\Vue_Mail_ReinitMdp;
 use App\Vue\Vue_Menu_Administration;
 use App\Vue\Vue_Structure_BasDePage;
 use App\Vue\Vue_Structure_Entete;
-use App\Fonctions;
+
+
 
 
 //Ce contrôleur gère le formulaire de connexion pour les visiteurs
 $Vue->setEntete(new Vue_Structure_Entete());
 
 switch ($action) {
+    case "token":
+        $token = \App\Modele\Modele_Jeton::Jeton_Select_ParToken($_SESSION["token"]);
+        if(!empty($token)){
+            $Vue->addToCorps(new \App\Vue\Vue_Mail_ChoisirNouveauMdp($_SESSION["token"],""));
+        }else{
+            echo "Token incorrect";
+        }
+
+        break;
+    case "reinitmdpParTokenconfirm":
+        $jeton = \App\Fonctions\genererToken();
+        $erreur = \App\Fonctions\sendMdpMailToken($jeton);
+        if ($erreur) {
+            $msg = 'Message envoyé ! Merci de nous avoir contactés.';
+        } else {
+            $msg = 'Désolé, quelque chose a mal tourné. Veuillez réessayer plus tard.';
+        }
+        $Vue->addToCorps(new Vue_Mail_Confirme($msg));
+        break;
     case "reinitmdpconfirm":
        $utilisateurMail=$_REQUEST["email"];
        $erreur = sendMdpMail($utilisateurMail);
