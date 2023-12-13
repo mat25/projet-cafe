@@ -72,6 +72,7 @@ Si vous estimez, après avoir contacté la société ABCD, que vos droits « Inf
 
 <form method='post' style='display: block'>
     <input type='hidden' name='case' value='RGPD'>
+    
     <button type='submit' name='action' value='AccepterRGPD'>Accepter le RGPD </button>
     <button type='submit' name='action' value='SeDeconnecter'>Refuser le RGPD </button>
         
