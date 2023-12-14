@@ -1,7 +1,8 @@
 <?php
 namespace App\Vue;
 use App\Utilitaire\Vue_Composant;
-
+use function App\Fonctions\genereChampHiddenCSRF;
+use function App\Fonctions\genereVarHrefCSRF;
 class Vue_Mail_ReinitMdp extends Vue_Composant
 {
     public function __construct()
@@ -29,7 +30,8 @@ class Vue_Mail_ReinitMdp extends Vue_Composant
 
         
         $str .=  "
- </form>
+ ".genereChampHiddenCSRF()."
+</form>
     ";
         return $str;
     }

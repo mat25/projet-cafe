@@ -1,7 +1,8 @@
 <?php
 namespace App\Vue;
 use App\Utilitaire\Vue_Composant;
-
+use function App\Fonctions\genereChampHiddenCSRF;
+use function App\Fonctions\genereVarHrefCSRF;
 class Vue_Compte_Administration_Gerer extends Vue_Composant
 {
     private string $msg;
@@ -26,7 +27,9 @@ class Vue_Compte_Administration_Gerer extends Vue_Composant
                      <input type='hidden' name='case' value='$this->action'>
                      
                     <button type='submit' name='action' value='changerMDP'>Changer mot de passe </button>
-                </form>
+                ".genereChampHiddenCSRF()."
+".genereChampHiddenCSRF()."
+</form>
             </td>
         </tr>
         <tr>
@@ -38,7 +41,9 @@ class Vue_Compte_Administration_Gerer extends Vue_Composant
                     <button type='submit' name='action' value='SeDeconnecter'>
                         Se déconnecter 
                     </button>
-                </form>
+                ".genereChampHiddenCSRF()."
+".genereChampHiddenCSRF()."
+</form>
             </td>
         </tr>
     </table>

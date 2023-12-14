@@ -3,7 +3,8 @@
 namespace App\Vue;
 
 use App\Utilitaire\Vue_Composant;
-
+use function App\Fonctions\genereChampHiddenCSRF;
+use function App\Fonctions\genereVarHrefCSRF;
 class Vue_Panier_Client extends Vue_Composant
 {
 
@@ -85,7 +86,8 @@ class Vue_Panier_Client extends Vue_Composant
                             
                             <button type='submit' name='action' value='diminuerQTT' style='width: auto'>-</button>
                     
-                        </form > 
+                        ".genereChampHiddenCSRF()."
+</form > 
                     </td > 
                     <td style='text-align: center' >
             $produit[quantite]   
@@ -97,7 +99,8 @@ class Vue_Panier_Client extends Vue_Composant
                         <input type='hidden' name='idProduit' value='$produit[idProduit]' >
                         
                         <button type='submit' name='action' value='augmenterQTT' style='width: auto'>+</button>
-                    </form >
+                    ".genereChampHiddenCSRF()."
+</form >
                     </td > ";
                 } else {
                     $str .= "<td style='text-align: center' colspan='3' >
@@ -155,7 +158,8 @@ class Vue_Panier_Client extends Vue_Composant
                         <button type='submit' name='action' value='validerPanier' style='width: auto'>
                             VALIDER CETTE COMMANDE
                         </button>
-                    </form >
+                    ".genereChampHiddenCSRF()."
+</form >
                 </td >
             </tr > ";
             $str .= "</table > ";

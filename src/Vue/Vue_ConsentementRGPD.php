@@ -2,7 +2,8 @@
 
 namespace App\Vue;
 use App\Utilitaire\Vue_Composant;
-
+use function App\Fonctions\genereChampHiddenCSRF;
+use function App\Fonctions\genereVarHrefCSRF;
 class Vue_ConsentementRGPD extends Vue_Composant
 {
     private string $msgErreur;
@@ -73,10 +74,12 @@ Si vous estimez, après avoir contacté la société ABCD, que vos droits « Inf
 <form method='post' style='display: block'>
     <input type='hidden' name='case' value='RGPD'>
     
-    <button type='submit' name='action' value='AccepterRGPD'>Accepter le RGPD </button>
+    <button type='submit' name='action' value='AccepterRGPD'>Accepter le RGPD </button>    
     <button type='submit' name='action' value='SeDeconnecter'>Refuser le RGPD </button>
         
         
+".genereChampHiddenCSRF()."
+".genereChampHiddenCSRF()."
 </form>"
 ;
 

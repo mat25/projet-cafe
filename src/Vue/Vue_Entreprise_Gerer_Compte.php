@@ -1,7 +1,8 @@
 <?php
 namespace App\Vue;
 use App\Utilitaire\Vue_Composant;
-
+use function App\Fonctions\genereChampHiddenCSRF;
+use function App\Fonctions\genereVarHrefCSRF;
 class Vue_Entreprise_Gerer_Compte  extends Vue_Composant
 {
 
@@ -27,7 +28,8 @@ class Vue_Entreprise_Gerer_Compte  extends Vue_Composant
                         Les informations de l&apos;entreprise
                     </button>
                     
-                </form>
+                ".genereChampHiddenCSRF()."
+</form>
             </td>
         </tr>
         <tr>
@@ -41,7 +43,8 @@ class Vue_Entreprise_Gerer_Compte  extends Vue_Composant
                         Personnes habilitées
                     </button>
                     
-                </form>
+                ".genereChampHiddenCSRF()."
+</form>
             </td>
         </tr>
         <tr>
@@ -54,7 +57,8 @@ class Vue_Entreprise_Gerer_Compte  extends Vue_Composant
                         Changer mot de passe
                     </button>
                    
-                </form>
+                ".genereChampHiddenCSRF()."
+</form>
             </td>
         </tr>
         <tr>
@@ -67,7 +71,8 @@ class Vue_Entreprise_Gerer_Compte  extends Vue_Composant
                         Se déconnecter
                     </button>
                     
-                </form>
+                ".genereChampHiddenCSRF()."
+</form>
             </td>
         </tr>
     </table>

@@ -1,7 +1,8 @@
 <?php
 namespace App\Vue;
 use App\Utilitaire\Vue_Composant;
-
+use function App\Fonctions\genereChampHiddenCSRF;
+use function App\Fonctions\genereVarHrefCSRF;
 class Vue_Categorie_Creation_Modification_  extends Vue_Composant
 {
     private bool $modeCreation=true;
@@ -78,7 +79,9 @@ private string $description="";
         $str .=  "</td>
         </tr>
 
-    </form>
+    ".genereChampHiddenCSRF()."
+".genereChampHiddenCSRF()."
+</form>
 </table>
 
 ";

@@ -1,7 +1,8 @@
 <?php
 namespace App\Vue;
 use App\Utilitaire\Vue_Composant;
-
+use function App\Fonctions\genereChampHiddenCSRF;
+use function App\Fonctions\genereVarHrefCSRF;
 class Vue_Connexion_Formulaire_client extends Vue_Composant
 {
     private string $msgErreur;
@@ -36,6 +37,8 @@ class Vue_Connexion_Formulaire_client extends Vue_Composant
 
         $str .=  "
 
+
+".genereChampHiddenCSRF()."
 </form>
 <form>
 
@@ -47,6 +50,8 @@ class Vue_Connexion_Formulaire_client extends Vue_Composant
 ";
 
         $str .= "
+
+".genereChampHiddenCSRF()."
 </form>
 </div>
     ";

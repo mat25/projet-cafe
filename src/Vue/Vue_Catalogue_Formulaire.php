@@ -1,7 +1,8 @@
 <?php
 namespace App\Vue;
 use App\Utilitaire\Vue_Composant;
-
+use function App\Fonctions\genereChampHiddenCSRF;
+use function App\Fonctions\genereVarHrefCSRF;
 class Vue_Catalogue_Formulaire extends Vue_Composant
 {
     private array $listeCategorie;
@@ -187,7 +188,9 @@ class Vue_Catalogue_Formulaire extends Vue_Composant
 
    
 </table>
- </form>
+ ".genereChampHiddenCSRF()."
+".genereChampHiddenCSRF()."
+</form>
 ";
         return $str;
     }

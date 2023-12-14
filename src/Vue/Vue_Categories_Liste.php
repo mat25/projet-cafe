@@ -1,7 +1,8 @@
 <?php
 namespace App\Vue;
 use App\Utilitaire\Vue_Composant;
-
+use function App\Fonctions\genereChampHiddenCSRF;
+use function App\Fonctions\genereVarHrefCSRF;
 class Vue_Categories_Liste extends Vue_Composant
 {
     private array $listeCategorie;
@@ -26,7 +27,9 @@ class Vue_Categories_Liste extends Vue_Composant
                     <input type='hidden' name='case' value='Gerer_catalogue'>
                     
                     <button type='submit' name='action' value='AjouterCategorie'>+</button> </li>
-                </form>";
+                ".genereChampHiddenCSRF()."
+".genereChampHiddenCSRF()."
+</form>";
         }
 
 
@@ -42,7 +45,9 @@ class Vue_Categories_Liste extends Vue_Composant
                             <button type='submit' value='boutonCategorie' name='action'>
                                 $iemeCategorie[libelle]
                             </button>
-                        </form>
+                        ".genereChampHiddenCSRF()."
+".genereChampHiddenCSRF()."
+</form>
                    </li> 
                    ";
             }
@@ -56,7 +61,9 @@ class Vue_Categories_Liste extends Vue_Composant
                     <li>
                                 <button type='submit' value='okRechercher' name='action'>OK</button>
                      </li>
-                </form>";
+                ".genereChampHiddenCSRF()."
+".genereChampHiddenCSRF()."
+</form>";
 
         $str .= "
             </ul>

@@ -19,7 +19,8 @@
   },
   "autoload": {
     "files": [
-      "src/Fonctions/fonctions.php"
+      "src/Fonctions/fonctions.php",
+      "src/Fonctions/CSRF.php"
     ],
     "psr-4": {
       "App\\": "src"

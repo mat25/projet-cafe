@@ -1,7 +1,8 @@
 <?php
 namespace App\Vue;
 use App\Utilitaire\Vue_Composant;
-
+use function App\Fonctions\genereChampHiddenCSRF;
+use function App\Fonctions\genereVarHrefCSRF;
 class Vue_Utilisateur_Formulaire  extends Vue_Composant
 {
 
@@ -90,7 +91,7 @@ private string $erreur="";
 
         $str .=  "</td>
         </tr>
-    </form>
+    ".genereChampHiddenCSRF().">
 </table>
 <p>$this->erreur</p>
 

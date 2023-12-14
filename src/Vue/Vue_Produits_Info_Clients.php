@@ -1,7 +1,8 @@
 <?php
 namespace App\Vue;
 use App\Utilitaire\Vue_Composant;
-
+use function App\Fonctions\genereChampHiddenCSRF;
+use function App\Fonctions\genereVarHrefCSRF;
 class Vue_Produits_Info_Clients extends Vue_Composant
 {
 
@@ -87,9 +88,11 @@ class Vue_Produits_Info_Clients extends Vue_Composant
                             Ajouter au panier
                         </button>
                         
-                       </form>
+                       ".genereChampHiddenCSRF()."
+</form>
                     </td>
-                    </form>
+                    ".genereChampHiddenCSRF()."
+</form>
                 </tr>
             
         ";

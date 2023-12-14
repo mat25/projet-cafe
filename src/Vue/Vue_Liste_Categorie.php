@@ -1,7 +1,8 @@
 <?php
 namespace App\Vue;
 use App\Utilitaire\Vue_Composant;
-
+use function App\Fonctions\genereChampHiddenCSRF;
+use function App\Fonctions\genereVarHrefCSRF;
 class Vue_Liste_Categorie  extends Vue_Composant
 {
     private array $listeCategorie;
@@ -25,7 +26,8 @@ class Vue_Liste_Categorie  extends Vue_Composant
             <input type='hidden' name='case' value='Gerer_catalogue'>
             
             </td> 
-        </form>
+        ".genereChampHiddenCSRF()."
+</form>
             <tr>
                 <th>ID Catégorie</th>
                 <th>Catégorie</th>
@@ -48,7 +50,8 @@ class Vue_Liste_Categorie  extends Vue_Composant
                               
                          <button class='btnRadius'  type='submit' name='action' value='ModifierCategorie'>
                           Modifier</button>
-                    </form>
+                    ".genereChampHiddenCSRF()."
+</form>
                 </td>
                 
             ";
@@ -63,7 +66,8 @@ class Vue_Liste_Categorie  extends Vue_Composant
                             <button class='btnRadius'  type='submit' name='action' value='DesactiverCategorie'>
                                 Désactiver
                              </button>
-                       </form>
+                       ".genereChampHiddenCSRF()."
+</form>
                   </td>";
             } elseif ($iemeCategorie["desactiverCategorie"] == 1) {
                 $str .=  "<td>
@@ -76,7 +80,8 @@ class Vue_Liste_Categorie  extends Vue_Composant
                             <button class='btnRadius'  type='submit' name='action' value='ActiverCategorie'>
                                 Activer
                              </button>
-                       </form>
+                       ".genereChampHiddenCSRF()."
+</form>
                   </td>";
             }
             $str .=  "</tr>";

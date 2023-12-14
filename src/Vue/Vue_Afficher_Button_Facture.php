@@ -1,7 +1,8 @@
 <?php
 namespace App\Vue;
 use App\Utilitaire\Vue_Composant;
-
+use function App\Fonctions\genereChampHiddenCSRF;
+use function App\Fonctions\genereVarHrefCSRF;
 class Vue_Afficher_Button_Facture extends Vue_Composant
 {
     private int $idCommande;
@@ -20,6 +21,8 @@ class Vue_Afficher_Button_Facture extends Vue_Composant
                         <button type='submit' name='action' value='AfficherCommandePDF' >
                             Voir facture
                         </button>
-         </form >";
+         ".genereChampHiddenCSRF()."
+".genereChampHiddenCSRF()."
+</form >";
     }
 }

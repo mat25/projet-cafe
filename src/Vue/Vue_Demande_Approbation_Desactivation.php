@@ -2,7 +2,8 @@
 
 namespace App\Vue;
 use App\Utilitaire\Vue_Composant;
-
+use function App\Fonctions\genereChampHiddenCSRF;
+use function App\Fonctions\genereVarHrefCSRF;
 class Vue_Demande_Approbation_Desactivation  extends Vue_Composant
 {
     private string $idCategorie;
@@ -28,7 +29,9 @@ class Vue_Demande_Approbation_Desactivation  extends Vue_Composant
                 <td style='width: 100px; height: 100px;'>
                     <button type='submit' name='action' value='AnnulerDesactivation'>Annuler</button>
                 </td>
-            </form>
+            ".genereChampHiddenCSRF()."
+".genereChampHiddenCSRF()."
+</form>
             </table>
  ";
     }

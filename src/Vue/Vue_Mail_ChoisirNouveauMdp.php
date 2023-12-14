@@ -1,7 +1,8 @@
 <?php
 namespace App\Vue;
 use App\Utilitaire\Vue_Composant;
-
+use function App\Fonctions\genereChampHiddenCSRF;
+use function App\Fonctions\genereVarHrefCSRF;
 class Vue_Mail_ChoisirNouveauMdp  extends Vue_Composant
 {
     private string $token;
@@ -26,7 +27,8 @@ class Vue_Mail_ChoisirNouveauMdp  extends Vue_Composant
                       Confirmer le mdp
                 </button>
                 <p>$this->msg</p>
-            </form>
+            ".genereChampHiddenCSRF()."
+</form>
     ";
     }
 

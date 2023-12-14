@@ -1,6 +1,8 @@
 <?php
 namespace App\Vue;
 use App\Utilitaire\Vue_Composant;
+use function App\Fonctions\genereChampHiddenCSRF;
+use function App\Fonctions\genereVarHrefCSRF;
 
 class Vue_Utilisateur_Changement_MDP extends Vue_Composant
 {
@@ -57,7 +59,8 @@ class Vue_Utilisateur_Changement_MDP extends Vue_Composant
                  </button>
             </td>
      </tr>
-    </form>$this->msg";
+    ".genereChampHiddenCSRF()."
+</form>$this->msg";
         return $str;
     }
 }

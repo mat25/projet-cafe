@@ -1,7 +1,8 @@
 <?php
 namespace App\Vue;
 use App\Utilitaire\Vue_Composant;
-
+use function App\Fonctions\genereChampHiddenCSRF;
+use function App\Fonctions\genereVarHrefCSRF;
 class Vue_Entreprise_Liste  extends Vue_Composant
 {
     private array $listeEntreprise;
@@ -32,7 +33,8 @@ class Vue_Entreprise_Liste  extends Vue_Composant
                                 name="action" value="nouveau">
                                     Nouvelle entreprise ? 
                         </button>
-                </form>
+                ".genereChampHiddenCSRF()."
+</form>
             </td>
  
         </tr>
@@ -69,7 +71,8 @@ class Vue_Entreprise_Liste  extends Vue_Composant
                                     name='action' value='Modifer'> 
                                         Modifier 
                             </button>
-                    </form>
+                    ".genereChampHiddenCSRF()."
+</form>
                 </td>
                 <!-- Création du bouton Désactiver ou Activer-->
                 ";
@@ -88,7 +91,8 @@ class Vue_Entreprise_Liste  extends Vue_Composant
                                     name='action' value='DesactiverEntreprise'> 
                                             Désactiver 
                             </button>
-                    </form>
+                    ".genereChampHiddenCSRF()."
+</form>
                 </td>
             </tr>
             
@@ -108,7 +112,8 @@ class Vue_Entreprise_Liste  extends Vue_Composant
                                     name='action' value='ActiverEntreprise'> 
                                         Activer 
                             </button>
-                    </form>
+                    ".genereChampHiddenCSRF()."
+</form>
                 </td>
             </tr>
             

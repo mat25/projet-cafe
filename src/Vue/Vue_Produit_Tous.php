@@ -1,7 +1,8 @@
 <?php
 namespace App\Vue;
 use App\Utilitaire\Vue_Composant;
-
+use function App\Fonctions\genereChampHiddenCSRF;
+use function App\Fonctions\genereVarHrefCSRF;
 class Vue_Produit_Tous extends Vue_Composant
 {
     private array $listeProduits;
@@ -25,7 +26,8 @@ class Vue_Produit_Tous extends Vue_Composant
                                 <input type='hidden' name='idCategorie' value='$this->idCategorie'>
                                 <button class='btnRadius' type='submit' value='nouveauProduit' name='action'>
                               Nouveau produit ?</button> 
-                            </form>   
+                            ".genereChampHiddenCSRF()."
+</form>   
                         </td>
                     </tr>
                 </table>
@@ -87,7 +89,8 @@ class Vue_Produit_Tous extends Vue_Composant
                     ";
                 $str .= "</table>
             </button>
-            </form>";
+            ".genereChampHiddenCSRF()."
+</form>";
             }
         } else {
             $str .= "<h3>Aucun produit n'est disponible pour le moment</h3>";

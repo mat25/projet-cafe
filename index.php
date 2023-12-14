@@ -3,6 +3,7 @@
 session_start();
 include_once "vendor/autoload.php";
 
+use function App\Fonctions\verifierCSRF;
 use App\Utilitaire\Vue;
 use App\Vue\Vue_AfficherMessage;
 use App\Vue\Vue_Connexion_Formulaire_client;
@@ -15,6 +16,31 @@ use App\Vue\Vue_Structure_Entete;
 
 $Vue = new Vue();
 
+
+// Verifie le token
+if(isset($_SESSION["CSRF"]))
+{
+    if(isset($_REQUEST["CSRF"])){
+        // - Jeton présent en session
+        if(verifierCSRF($_REQUEST["CSRF"] ) == -1){
+            unset($_SESSION);
+            $_REQUEST["action"] = "Action_Par_Defaut";
+            $_REQUEST["case"] = "Cas_Par_Defaut";
+        }
+    }
+    else
+    {
+        // - Jeton présent en session : l'utilisateur bricole les URLS, et n'envoie pas de jeton
+        unset($_SESSION);
+        $_REQUEST["action"] = "Action_Par_Defaut";
+        $_REQUEST["case"] = "Cas_Par_Defaut";
+    }
+}
+else
+{
+    $_REQUEST["action"] = "Action_Par_Defaut";
+    $_REQUEST["case"] = "Cas_Par_Defaut";
+}
 
 
 if (isset($_SESSION["typeConnexionBack"])) {

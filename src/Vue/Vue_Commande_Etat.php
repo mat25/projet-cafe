@@ -1,7 +1,8 @@
 <?php
 namespace App\Vue;
 use App\Utilitaire\Vue_Composant;
-
+use function App\Fonctions\genereChampHiddenCSRF;
+use function App\Fonctions\genereVarHrefCSRF;
 class Vue_Commande_Etat extends Vue_Composant
 {
     private array $listeEtatCommande;
@@ -24,7 +25,9 @@ class Vue_Commande_Etat extends Vue_Composant
                     <input type='hidden' name='case' value='Gerer_Commande'>
                     
                     <li><button type='submit' name='action' value='Toute'>Toutes</button> </li>
-                </form>";
+                ".genereChampHiddenCSRF()."
+".genereChampHiddenCSRF()."
+</form>";
 
         while ($i < count($this->listeEtatCommande)) {
             $iemeEtatCommande=$this->listeEtatCommande[$i];
@@ -36,7 +39,9 @@ class Vue_Commande_Etat extends Vue_Composant
                             <input type='hidden' name='case' value='Gerer_Commande'>
                             <input type='hidden' name='idEtatCommande' value='$iemeEtatCommande[idEtatCommande]'>
                             <button type='submit' name='action' value='boutonCategorie'> $iemeEtatCommande[libelle]</button>
-                        </form>
+                        ".genereChampHiddenCSRF()."
+".genereChampHiddenCSRF()."
+</form>
                    </li> 
                    ";
 
@@ -48,7 +53,9 @@ class Vue_Commande_Etat extends Vue_Composant
                     <input type='hidden' name='case' value='Gerer_Commande'> 
                     <li><input type='text' name='recherche' placeholder='Rechercher'> </li>
                     <li><button type='submit' name='action' value='okRechercher'>OK</button> </li>
-                </form>";
+                ".genereChampHiddenCSRF()."
+".genereChampHiddenCSRF()."
+</form>";
         $str .=  "
             </ul>
             </nav>";

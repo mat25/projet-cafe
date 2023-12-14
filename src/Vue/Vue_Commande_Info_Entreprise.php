@@ -1,7 +1,8 @@
 <?php
 namespace App\Vue;
 use App\Utilitaire\Vue_Composant;
-
+use function App\Fonctions\genereChampHiddenCSRF;
+use function App\Fonctions\genereVarHrefCSRF;
 class Vue_Commande_Info_Entreprise extends Vue_Composant
 {
     private array $listeCommande;
@@ -61,7 +62,9 @@ class Vue_Commande_Info_Entreprise extends Vue_Composant
                                 
                                 <button type='submit' name='action' value='VoirDetailCommande'>Voir</button>
                             
-                            </form>
+                            ".genereChampHiddenCSRF()."
+".genereChampHiddenCSRF()."
+</form>
                         </td>
                     </tr>
             ";

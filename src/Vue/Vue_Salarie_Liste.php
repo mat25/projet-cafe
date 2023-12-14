@@ -1,6 +1,8 @@
 <?php
 namespace App\Vue;
 use App\Utilitaire\Vue_Composant;
+use function App\Fonctions\genereChampHiddenCSRF;
+use function App\Fonctions\genereVarHrefCSRF;
 class Vue_Salarie_Liste extends Vue_Composant
 {
 private array $listeSalarie;
@@ -35,7 +37,8 @@ Les salariés se connecteront avec leur e-mail<br>
                             value="ajouterSalarie"> 
                                 Ajouter un salarié 
                         </button>
-                </form>
+                ".genereChampHiddenCSRF()."
+</form>
             </td>
  
         </tr>';
@@ -89,7 +92,8 @@ Les salariés se connecteront avec leur e-mail<br>
                                 value='ModiferSalarie'>
                                  Modifier 
                             </button>
-                    </form>
+                    ".genereChampHiddenCSRF()."
+</form>
                 </td>
                 <!-- Création du bouton Désactiver ou Activer-->
                 ";
@@ -110,7 +114,8 @@ Les salariés se connecteront avec leur e-mail<br>
                                 value='DesactiverSalarie'> 
                                     Désactiver 
                             </button>
-                    </form>
+                    ".genereChampHiddenCSRF()."
+</form>
                 </td>";
                     break;
                 case 1:
@@ -128,7 +133,8 @@ Les salariés se connecteront avec leur e-mail<br>
                             value='ActiverSalarie'>
                                 Activer 
                             </button>
-                    </form>
+                    ".genereChampHiddenCSRF()."
+</form>
                 </td>";
                     break;
             }
