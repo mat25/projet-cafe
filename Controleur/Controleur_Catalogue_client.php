@@ -3,7 +3,7 @@
 
 use App\Modele\Modele_Catalogue;
 use App\Modele\Modele_Commande;
-use App\Vue\Vue__CategoriesListe;
+use App\Utilitaire\Singleton_Logger;
 use App\Vue\Vue_Categories_Liste;
 use App\Vue\Vue_Menu_Entreprise_Salarie;
 use App\Vue\Vue_Produits_Info_Clients;
@@ -13,10 +13,10 @@ use App\Vue\Vue_Structure_Entete;
 
 $Vue->setEntete(new Vue_Structure_Entete());
 
-
     if ($action == "AjoutPanierClient") {
         //on met dans le panier avant de calculer le menu
         Modele_Commande::Panier_Ajouter_Produit_ParIdProduit($_SESSION["idEntreprise"], $_REQUEST["idProduit"]);
+        Singleton_Logger::getInstance()->info('Ajout d un produit au panier !', );
     }
 
     $quantiteMenu = Modele_Commande::Panier_Quantite($_SESSION["idEntreprise"]);

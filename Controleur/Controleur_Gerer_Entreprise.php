@@ -4,6 +4,7 @@
 use App\Modele\Modele_Entreprise;
 use App\Modele\Modele_Salarie;
 use App\Modele\Modele_Utilisateur;
+use App\Utilitaire\Singleton_Logger;
 use App\Vue\Vue_Utilisateur_Changement_MDP;
 use App\Vue\Vue_Connexion_Formulaire_client;
 use App\Vue\Vue_Menu_Entreprise_Client;
@@ -45,6 +46,7 @@ switch ($action) {
     case "buttonCreerSalarie":
         $Vue->setEntete(new Vue_Structure_Entete());
         $Vue->setMenu(new Vue_Menu_Entreprise_Client());
+        Singleton_Logger::getInstance()->info("Ajout d'un salarie !" );
         Modele_Salarie::Salarie_Ajouter($_REQUEST["nom"], $_REQUEST["prenom"], $_REQUEST["role"], $_REQUEST["mailContact"], "secret", 1, $_SESSION["idEntreprise"]);
         $listeSalarie = Modele_Salarie::Salarie_Select_Entreprise($_SESSION["idEntreprise"]);
         $Vue->addToCorps(new Vue_Salarie_Liste($listeSalarie));
@@ -53,6 +55,7 @@ switch ($action) {
     case "ModiferSalarie":
         $Vue->setEntete(new Vue_Structure_Entete());
         $Vue->setMenu(new Vue_Menu_Entreprise_Client());
+        Singleton_Logger::getInstance()->info("Modification du salarie ".$_REQUEST['idSalarie'] );
         $salarie = Modele_Salarie::Salarie_Select_byId($_REQUEST["idSalarie"]);
         $Vue->addToCorps(new Vue_Salarie_Editer(false, $salarie["idSalarie"], $salarie["nom"], $salarie["prenom"], $salarie["roleEntreprise"], $salarie["mail"]));
         $Vue->setBasDePage(new Vue_Structure_BasDePage());
@@ -63,13 +66,14 @@ switch ($action) {
 
         Modele_Salarie::Salarie_MAJ($_REQUEST["nom"], $_REQUEST["prenom"], $_REQUEST["role"], $_REQUEST["mailContact"], $_REQUEST["idSalarie"]);
         $listeSalarie = Modele_Salarie::Salarie_Select_Entreprise($_SESSION["idEntreprise"]);
+        Singleton_Logger::getInstance()->info("Modification du salarie ".$_REQUEST['idSalarie'] );
         $Vue->addToCorps(new Vue_Salarie_Liste($listeSalarie, "<br>Salarié modifié"));
         $Vue->setBasDePage(new Vue_Structure_BasDePage());
         break;
     case "DesactiverSalarie" :
         $Vue->setEntete(new Vue_Structure_Entete());
         $Vue->setMenu(new Vue_Menu_Entreprise_Client());
-
+        Singleton_Logger::getInstance()->info("desactivation du salarie ".$_REQUEST['idSalarie'] );
         Modele_Salarie::Salarie_Activer($_REQUEST["idSalarie"]);
         $listeSalarie = Modele_Salarie::Salarie_Select_Entreprise($_SESSION["idEntreprise"]);
         $Vue->addToCorps(new Vue_Salarie_Liste($listeSalarie, "<br>Salarié modifié"));
@@ -78,7 +82,7 @@ switch ($action) {
     case "ActiverSalarie":
         $Vue->setEntete(new Vue_Structure_Entete());
         $Vue->setMenu(new Vue_Menu_Entreprise_Client());
-
+        Singleton_Logger::getInstance()->info("Activation du salarie ".$_REQUEST['idSalarie'] );
         Modele_Salarie::Salarie_Desactiver($_REQUEST["idSalarie"]);
         $listeSalarie = Modele_Salarie::Salarie_Select_Entreprise($_SESSION["idEntreprise"]);
         $Vue->addToCorps(new Vue_Salarie_Liste($listeSalarie, "<br>Salarié modifié"));
@@ -94,6 +98,7 @@ switch ($action) {
             if ($_REQUEST["NouveauPassword"] == $_REQUEST["ConfirmPassword"]) {
                 if ( CalculComplexiteMdp($_REQUEST["NouveauPassword"]) > 90) {
                     Modele_Utilisateur::Utilisateur_Modifier_motDePasse($_SESSION["idUtilisateur"], $_REQUEST["NouveauPassword"]);
+                    Singleton_Logger::getInstance()->info("Un utilisateur ".$_SESSION["idUtilisateur"]." a changer sont mot de passe" );
                     $Vue->addToCorps(new Vue_Entreprise_Gerer_Compte("<label><b>Votre mot de passe a bien été modifié</b></label>"));
                     // Dans ce cas les mots de passe sont bons, il est donc modifié
                 } else {
@@ -104,6 +109,7 @@ switch ($action) {
 
             }
         } else {
+            Singleton_Logger::getInstance()->info("Un utilisateur a éssayer de changer son mot de passe" );
             $Vue->addToCorps(new Vue_Utilisateur_Changement_MDP("<label><b>Vous n'avez pas saisi le bon mot de passe</b></label>"));
 
         }

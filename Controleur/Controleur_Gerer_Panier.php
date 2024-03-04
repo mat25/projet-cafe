@@ -2,6 +2,7 @@
 
 use App\Modele\Modele_Commande;
 use App\Modele\Modele_Entreprise;
+use App\Utilitaire\Singleton_Logger;
 use App\Vue\Facture_BasPageBrulerie;
 use App\Vue\Facture_EnteteBrulerie;
 use App\Vue\Vue__CategoriesListe;
@@ -42,6 +43,7 @@ switch ($action) {
         $html2pdf->pdf->SetDisplayMode('fullpage');
         $html2pdf->writeHTML($content);
         $html2pdf->output('facture.pdf');
+        Singleton_Logger::getInstance()->info("Le salarie ".$_REQUEST["idSalarie"]." a valider le panier de la commande ".$infoCommande["id"]." !" );
         exit();
     //  echo $content;
     /*$html2pdf = new Html2Pdf();

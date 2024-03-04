@@ -3,6 +3,7 @@
 use App\Modele\Modele_Commande;
 use App\Modele\Modele_Salarie;
 use App\Modele\Modele_Utilisateur;
+use App\Utilitaire\Singleton_Logger;
 use App\Vue\Vue_Compte_Administration_Gerer;
 use App\Vue\Vue_Connexion_Formulaire_client;
 use App\Vue\Vue_Menu_Entreprise_Salarie;
@@ -31,6 +32,7 @@ switch ($action) {
                     $quantiteMenu = Modele_Commande::Panier_Quantite($_SESSION["idEntreprise"]);
                     $Vue->setMenu(new Vue_Menu_Entreprise_Salarie($quantiteMenu));
                     Modele_Utilisateur::Utilisateur_Modifier_motDePasse($_SESSION["idUtilisateur"], $_REQUEST["NouveauPassword"]);
+                    Singleton_Logger::getInstance()->info("Le mot de passe de l'utilisateur ".$_REQUEST["idUtilisateur"]." a été changer !" );
                     $Vue->addToCorps(new Vue_Compte_Administration_Gerer("<br><label><b>Votre mot de passe a bien été modifié</b></label>", "Gerer_MonCompte_Salarie"));
                     // Dans ce cas les mots de passe sont bons, il est donc modifier
                 }else {

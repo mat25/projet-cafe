@@ -2,6 +2,7 @@
 
 
 use App\Modele\Modele_Utilisateur;
+use App\Utilitaire\Singleton_Logger;
 use App\Vue\Vue_Compte_Administration_Gerer;
 use App\Vue\Vue_Connexion_Formulaire_client;
 use App\Vue\Vue_Menu_Administration;
@@ -29,6 +30,7 @@ switch ($action) {
                     $Vue->setEntete(new Vue_Structure_Entete());
                     $Vue->setMenu(new Vue_Menu_Administration($typeConnexion));
                     Modele_Utilisateur::Utilisateur_Modifier_motDePasse($_SESSION["idUtilisateur"], $_REQUEST["NouveauPassword"]);
+                    Singleton_Logger::getInstance()->info("L'utilisateur ".$_REQUEST["idUtilisateur"]." a été rénitialiser son mot de passe !" );
                     $Vue->addToCorps(new Vue_Compte_Administration_Gerer("<label><b>Votre mot de passe a bien été modifié</b></label>"));
                     // Dans ce cas les mots de passe sont bons, il est donc modifier
                 } else {
@@ -43,6 +45,7 @@ switch ($action) {
                 $Vue->addToCorps(new Vue_Utilisateur_Changement_MDP("<label><b>Les nouveaux mots de passe ne sont pas identiques</b></label>", "Gerer_monCompte"));
             }
         } else {
+            Singleton_Logger::getInstance()->info("un utilisateur a essayer de changer son mot de passe" );
             $Vue->setEntete(new Vue_Structure_Entete());
             $Vue->setMenu(new Vue_Menu_Administration($typeConnexion));
             $Vue->addToCorps(new Vue_Utilisateur_Changement_MDP("<label><b>Vous n'avez pas saisi le bon mot de passe</b></label>", "Gerer_monCompte"));
@@ -50,6 +53,7 @@ switch ($action) {
         break;
     case  "SeDeconnecter":
         //L'utilisateur a cliqué sur "se déconnecter"
+        Singleton_Logger::getInstance()->info("L'utilisateur ".$_REQUEST["idEntreprise"]." c'est deconnecter !" );
         session_destroy();
         unset($_SESSION);
         $Vue->setEntete(new Vue_Structure_Entete());

@@ -2,6 +2,7 @@
 
 
 use App\Modele\Modele_Catalogue;
+use App\Utilitaire\Singleton_Logger;
 use App\Vue\Vue_Menu_Administration;
 use App\Vue\Vue__CategoriesListe;
 use App\Vue\Vue_Produit_Creation;
@@ -39,6 +40,7 @@ switch ($action) {
         $listeTVA = Modele_Catalogue::TVA_Select_Tous();
         if (isset($_FILES['image_utilisateur']) and $_FILES['image_utilisateur']['error'] == 0) {
             $Vue->addToCorps(new Vue_AfficherMessage("<label><b>Pour des raisons de sécurité, veuillez resélectionner votre image</b></label>"));
+            Singleton_Logger::getInstance()->warning("L'utilisateur ".$_SESSION['id_utilisateur']." a ajouter une image incorrect !", );
         }
         $Vue->addToCorps(new Vue_Catalogue_Formulaire($listeCategorie, $listeTVA, true,
             true, "", $_REQUEST["nom"], $_REQUEST["description"], $_REQUEST["resume"],
@@ -64,6 +66,7 @@ switch ($action) {
             $_REQUEST["DesactiverProduit"]);
         $produit = Modele_Catalogue::Produit_Select_ParId($idProduit);
         Modele_Catalogue::Produit_Update_Ref($produit["libelle"], $produit["nom"], $idProduit);
+        Singleton_Logger::getInstance()->info("L'utilisateur ".$_SESSION['id_utilisateur']." a créer un produit !", );
         // Une fois le produit crée, on lui affiche une page pour savoir si le produit a bien été créé ou non, ainsi qu'un lien pour revenir sur le catalogue
         $Vue->addToCorps(new Vue_Produit_Creation($idProduit, false, true));
         break;
@@ -85,6 +88,7 @@ switch ($action) {
             $_REQUEST["DesactiverProduit"]);
         $produit = Modele_Catalogue::Produit_Select_ParId($idProduit);
         Modele_Catalogue::Produit_Update_Ref($produit["libelle"], $produit["nom"], $idProduit);
+        Singleton_Logger::getInstance()->info("L'utilisateur ".$_SESSION['id_utilisateur']." a créer un produit !", );
         // Une fois le produit crée, on lui affiche une page pour savoir si le produit a bien été crée ou non, ainsi qu'un lien pour revenir sur le catalogue
         $Vue->addToCorps(new Vue_Produit_Creation($idProduit, false, true));
         break;
@@ -108,6 +112,7 @@ switch ($action) {
         $produit = Modele_Catalogue::Produit_Select_ParId($idProduit);
         Modele_Catalogue::Produit_Update_Ref($produit["libelle"], $produit["nom"], $idProduit);
         // Une fois le produit crée, on lui affiche une page pour savoir si le produit a bien été crée ou non, ainsi qu'un lien pour revenir sur le catalogue
+        Singleton_Logger::getInstance()->info("L'utilisateur ".$_SESSION['id_utilisateur']." a créer un produit et/ou une catégorie !", );
         $Vue->addToCorps(new Vue_Produit_Creation($idProduit, false, true));
         break;
     case "nouveauProduit":
@@ -121,7 +126,7 @@ switch ($action) {
                 $_REQUEST["idCategorie"]));
         } else
             $Vue->addToCorps(new Vue_Catalogue_Formulaire($listeCategorie, $listeTVA, true,));
-
+        Singleton_Logger::getInstance()->info("L'utilisateur ".$_SESSION['id_utilisateur']." a créer un produit et/ou une catégorie !", );
         break;
     case "mettreAJourProduit":
 
@@ -139,6 +144,7 @@ switch ($action) {
             $_REQUEST["resume"], $fichier_image, $_REQUEST["prixVenteHT"], $_REQUEST["idCategorie"],
             $_REQUEST["idTVA"], $_REQUEST["DesactiverProduit"]);
         // Une fois le produit modifié, on réaffiche tout le catalogue
+        Singleton_Logger::getInstance()->info("L'utilisateur ".$_SESSION['id_utilisateur']." a modifier le produit ".$_REQUEST["idProduit"], );
         $listeProduit = Modele_Catalogue::Produit_Select();
         $Vue->addToCorps(new Vue_Produit_Tous($listeProduit));
 
@@ -175,6 +181,7 @@ switch ($action) {
             case 1:
                 $categorie["desactiverCategorie"] = 0;
                 Modele_Catalogue::Categorie_Modifier_Desactivation($idCategorie, $categorie["desactiverCategorie"]);
+                Singleton_Logger::getInstance()->info("L'utilisateur ".$_SESSION['id_utilisateur']." a desactiver/activer la categorie ".$idCategorie, );
                 break;
         }
         $listeCategorie = Modele_Catalogue::Categorie_Select_Tous();
@@ -184,6 +191,7 @@ switch ($action) {
         $idCategorie = $_REQUEST["idCategorie"];
         $categorie = Modele_Catalogue::Categorie_Select_ParID($idCategorie);
         $categorie["desactiverCategorie"] = 1;
+        Singleton_Logger::getInstance()->info("L'utilisateur ".$_SESSION['id_utilisateur']." a desactiver/activer la categorie ".$idCategorie, );
         Modele_Catalogue::Categorie_Modifier_Desactivation($idCategorie, $categorie["desactiverCategorie"]);
         $listeCategorie = Modele_Catalogue::Categorie_Select_Tous();
         $Vue->addToCorps(new Vue_Liste_Categorie($listeCategorie));
@@ -198,6 +206,7 @@ switch ($action) {
     case "mettreAJourCategorie":
         // l'utilsateur clique sur mettre à jour, pour valider sa modification
         $idCategorie = $_REQUEST["idCategorie"];
+        Singleton_Logger::getInstance()->info("L'utilisateur ".$_SESSION['id_utilisateur']." a mis a jour la categorie ".$idCategorie, );
         Modele_Catalogue::Categorie_Modifier($idCategorie, $_REQUEST["libelle"], $_REQUEST["description"]);
         $listeCategorie = Modele_Catalogue::Categorie_Select_Tous();
         $Vue->addToCorps(new Vue_Liste_Categorie($listeCategorie));
@@ -220,6 +229,7 @@ switch ($action) {
             $Vue->addToCorps(new Vue_Produit_Creation($reponse, true, false));
             $listeCategorie = Modele_Catalogue::Categorie_Select_Tous();
             $listeTVA = Modele_Catalogue::TVA_Select_Tous();
+            Singleton_Logger::getInstance()->info("L'utilisateur ".$_SESSION['idEntreprise']." a créer une categorie", );
             $Vue->addToCorps(new Vue_Catalogue_Formulaire($listeCategorie, $listeTVA, true, "", "", "", "",
                 "", "", "", $reponse));
         }

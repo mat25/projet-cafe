@@ -5,6 +5,7 @@ require_once "src/Fonctions/sendMdpMailParToken.php";
 use App\Modele\Modele_Entreprise;
 use App\Modele\Modele_Salarie;
 use App\Modele\Modele_Utilisateur;
+use App\Utilitaire\Singleton_Logger;
 use App\Vue\Vue_Connexion_Formulaire_client;
 use App\Vue\Vue_Mail_Confirme;
 use App\Vue\Vue_Mail_ReinitMdp;
@@ -33,18 +34,22 @@ switch ($action) {
         $erreur = \App\Fonctions\sendMdpMailToken($jeton);
         if ($erreur) {
             $msg = 'Message envoyé ! Merci de nous avoir contactés.';
+            Singleton_Logger::getInstance()->info("Un utilisateur a rénitilaliser son mot de passe" );
         } else {
             $msg = 'Désolé, quelque chose a mal tourné. Veuillez réessayer plus tard.';
+            Singleton_Logger::getInstance()->info("Un utilisateur a essayer de rénitilaliser son mot de passe" );
         }
         $Vue->addToCorps(new Vue_Mail_Confirme($msg));
         break;
     case "reinitmdpconfirm":
-       $utilisateurMail=$_REQUEST["email"];
-       $erreur = sendMdpMail($utilisateurMail);
-       if ($erreur) {
-           $msg = 'Message envoyé ! Merci de nous avoir contactés.';
-       } else {
-           $msg = 'Désolé, quelque chose a mal tourné. Veuillez réessayer plus tard.';
+        $utilisateurMail=$_REQUEST["email"];
+        $erreur = sendMdpMail($utilisateurMail);
+        if ($erreur) {
+            Singleton_Logger::getInstance()->info("Un utilisateur a rénitilaliser son mot de passe" );
+            $msg = 'Message envoyé ! Merci de nous avoir contactés.';
+        } else {
+            Singleton_Logger::getInstance()->info("Un utilisateur a essayer de rénitilaliser son mot de passe" );
+            $msg = 'Désolé, quelque chose a mal tourné. Veuillez réessayer plus tard.';
        }
        $Vue->addToCorps(new Vue_Mail_Confirme($msg));
        break;
@@ -87,6 +92,7 @@ switch ($action) {
                     if ($_REQUEST["password"] == $utilisateur["motDePasse"]) {
                         connect:
                         $_SESSION["idUtilisateur"] = $utilisateur["idUtilisateur"];
+                        Singleton_Logger::getInstance()->info("L'utilisateur ".$_REQUEST["idUtilisateur"]." c'est connecter !" );
                         //error_log("idUtilisateur : " . $_SESSION["idUtilisateur"]);
                         $_SESSION["acceptationRGPD"]=$utilisateur["aAccepterRGPD"];
                         $_SESSION["idCategorie_utilisateur"] = $utilisateur["idCategorie_utilisateur"];

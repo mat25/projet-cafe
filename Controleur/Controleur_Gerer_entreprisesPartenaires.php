@@ -2,6 +2,7 @@
 
 use App\Modele\Modele_Entreprise;
 use App\Modele\Modele_Utilisateur;
+use App\Utilitaire\Singleton_Logger;
 use App\Vue\Vue_Menu_Administration;
 use App\Vue\Vue_Entreprise_Formulaire;
 use App\Vue\Vue_Entreprise_Liste;
@@ -38,6 +39,7 @@ switch ($action) {
     case  "réinitialiserMDP":
         //Réinitialiser MDP sur la fiche de l'entreprise
         $entreprise = Modele_Entreprise::Entreprise_Select_ParId($_REQUEST["idEntreprise"]);
+        Singleton_Logger::getInstance()->info("Le mot de passe de l'entreprise ".$_REQUEST["idEntreprise"]." a été rénitialiser !" );
 
         $motDePasse = App\Fonctions\GenereMDP(10);
         Modele_Entreprise::Entreprise_Modifier_motDePasse($_REQUEST["idEntreprise"], $motDePasse); //$entreprise["numCompte"]
@@ -89,6 +91,7 @@ switch ($action) {
         // champ desactiver valeur 0 : personne activée sur le site
         if ($Entreprise["desactiver"] == 0) {
             $Entreprise["desactiver"] = 1;
+
             Modele_Entreprise::Entreprise_Modifier_Desactivation($_REQUEST["idEntreprise"], $Entreprise["desactiver"]);
 
         } // champ desactiver valeur 1 : personne désactivée sur le site
@@ -96,6 +99,7 @@ switch ($action) {
             $Entreprise["desactiver"] = 0;
             Modele_Entreprise::Entreprise_Modifier_Desactivation($_REQUEST["idEntreprise"], $Entreprise["desactiver"]);
         }
+        Singleton_Logger::getInstance()->info("Active ou desactive l'entreprise ".$_REQUEST["idEntreprise"] );
         $listeEntreprise = Modele_Entreprise::Entreprise_Select();
        // $Utilisateur = Modele_Utilisateur::Utilisateur_Select_ParId($_SESSION["idUtilisateur"]);
         $Vue->addToCorps(new Vue_Entreprise_Liste($listeEntreprise));

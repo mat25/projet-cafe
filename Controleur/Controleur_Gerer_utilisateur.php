@@ -2,6 +2,7 @@
 
 use App\Modele\Modele_categorie_utilisateur;
 use App\Modele\Modele_Utilisateur;
+use App\Utilitaire\Singleton_Logger;
 use App\Vue\Vue_AfficherMessage;
 use App\Vue\Vue_Menu_Administration;
 use App\Vue\Vue_Structure_BasDePage;
@@ -91,6 +92,7 @@ switch ($action) {
         // champ desactiver valeur 0 : personne activée sur le site
 
         $Utilisateur["desactiver"] = 1;
+        Singleton_Logger::getInstance()->info("L'utilisateur ".$_REQUEST["idUtilisateur"]." a été désactiver !" );
         Modele_Utilisateur::Utilisateur_Modifier_Desactivation($_REQUEST["idUtilisateur"], $Utilisateur["desactiver"]);
 
         $listeUtilisateur = Modele_Utilisateur:: Utilisateur_Select_Cafe();
@@ -101,6 +103,7 @@ switch ($action) {
         $Utilisateur = Modele_Utilisateur::Utilisateur_Select_ParId($_REQUEST["idUtilisateur"]);
 
         $Utilisateur["desactiver"] = 0;
+        Singleton_Logger::getInstance()->info("L'utilisateur ".$_REQUEST["idUtilisateur"]." a été activer !" );
         Modele_Utilisateur::Utilisateur_Modifier_Desactivation($_REQUEST["idUtilisateur"], $Utilisateur["desactiver"]);
 
         $listeUtilisateur = Modele_Utilisateur:: Utilisateur_Select_Cafe();
